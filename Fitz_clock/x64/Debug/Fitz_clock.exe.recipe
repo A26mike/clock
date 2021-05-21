@@ -2,7 +2,7 @@
 <Project>
   <ProjectOutputs>
     <ProjectOutput>
-      <FullPath>C:\Projects\C++\cs210\labs\FitzProjectOne\x64\Debug\Fitz_clock.exe</FullPath>
+      <FullPath>C:\Projects\C++\cs210\labs\FitzProjectOne\clock\x64\Debug\Fitz_clock.exe</FullPath>
     </ProjectOutput>
   </ProjectOutputs>
   <ContentFiles />

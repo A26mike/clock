@@ -1,14 +1,12 @@
-
+#include <array>
 #include <iostream>
 #include <cstdlib>
-#include "string"
-#include <sstream>
-#include "CurrentTime.h"
+#include <iomanip>
+#include <Windows.h>
+#include "Time.h"
 #include "ConsoleOutput.h"
-#include<windows.h>
 
 
-std::string print24Format(int userHour, int userMinute, int userSecond);
 
 /**
  * This program displays a clock in 24hr and 12hr format.
@@ -16,38 +14,59 @@ std::string print24Format(int userHour, int userMinute, int userSecond);
  *
  * @return int
  */
+
 int main()
 {
+	// initialise all user time inputs to 0;
+	int userHour = 0;
+	int userMinute = 0;
+	int userSecond = 0;
+	// seconds * 1000 = second handler used for sleep.
+	const int SECOND_HANDLER = 1000;
 	
-	for(int i = 0; i < 1000 ;++i)
+	/*
+	 * Need to move SystemTime from time.cpp to get system time only once. It would have been better of not used sleep to update seconds.
+	 * 
+	 */
+	std::array<int, 3> SystemTime = getSystemTime();
+
+	//time loop
+	bool keepTime = true;
+
+	while(keepTime)
 	{
-        Sleep(1000);
-        system("CLS");
+		system("CLS");
+		printTitle();
+		printTime(clock12HourFormat(updateTime(userHour, userMinute, userSecond, SystemTime)), clock24HourFormat(updateTime(userHour, userMinute, userSecond, SystemTime)));
+		printMenu();
 
-        printTime();
-        std::cout <<  std::flush;
+		// add a second to the  clock;
+		userSecond += 1;
+
+		// Async key state does not need to stop to get key input from user. 
+
+		if (GetAsyncKeyState('1') & 0x01)
+		{
+			userHour += 1;
+		}
+
+		if (GetAsyncKeyState('2') & 0x01)
+		{
+			userMinute += 1;
+		}
+
+		if (GetAsyncKeyState('3') & 0x01)
+		{
+			userSecond += 1;
+		}
+
+		if (GetAsyncKeyState('4') & 0x01)
+		{
+			
+			keepTime = false;
+		}
+		Sleep(SECOND_HANDLER);
 	}
-
-    return 0;
+	std::cout << "Good bye";
+	return 0;
 }
-
-
-std::string print24Format(int userHour, int userMinute, int userSecond)
-{
-    int hour = userHour + getCurrentHour();
-    int minute = userMinute + getCurrentMinute();
-    int second = userSecond + getCurrentSeconds();
-    std::string militaryFormat;
-
-    militaryFormat = std::to_string(hour) + ":" + std::to_string(minute) + ":" + std::to_string(second);
-    return militaryFormat;
-//"15:22:02"	
-}
-
-//TODO get initial time and add a second or wait a second
-//TODO add logic for 60 seconds 60 mins and 24/12 hours + PM / am
-//
-
-
-
- 

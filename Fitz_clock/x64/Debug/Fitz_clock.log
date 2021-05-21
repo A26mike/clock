@@ -1,2 +1,5 @@
-﻿  Main.cpp
-  Fitz_clock.vcxproj -> C:\Projects\C++\cs210\labs\FitzProjectOne\x64\Debug\Fitz_clock.exe
+﻿  ConsoleOutput.cpp
+  Main.cpp
+  Time.cpp
+  Generating Code...
+  Fitz_clock.vcxproj -> C:\Projects\C++\cs210\labs\FitzProjectOne\clock\x64\Debug\Fitz_clock.exe
